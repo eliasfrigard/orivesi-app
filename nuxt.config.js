@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'orivesi-app',
+    title: 'Orivesi All Stars',
     htmlAttrs: {
       lang: 'en'
     },

@@ -10,11 +10,17 @@
     <img class="image" src="~/assets/images/oas8.jpg" alt="">
     <img class="image" src="~/assets/images/oas9.jpg" alt="">
     <img class="image" src="~/assets/images/oas10.jpg" alt="">
+    <img class="image" src="~/assets/images/oas11.jpg" alt="">
+    <img class="image" src="~/assets/images/oas12.jpg" alt="">
+    <img class="image" src="~/assets/images/oas13.jpg" alt="">
+    <img class="image" src="~/assets/images/oas14.jpg" alt="">
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+
+}
 </script>
 
 <style scoped>
@@ -22,12 +28,11 @@ export default {}
   margin-top: 20px;
   display:flex;
   flex-wrap: wrap;
-  width: 75%;
+  width: 100%;
 }
 .image {
-  height: 150px;
-  width: 150px;  
+  width: calc(14.285% - 10px);
+  margin: 10px 10px 0 0;
   object-fit: cover;
-  margin: 10px 10px 0 0 ;
 }
 </style>
