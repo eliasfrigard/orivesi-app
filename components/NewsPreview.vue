@@ -45,6 +45,7 @@ export default {
   border: 1px solid rgba(230, 230, 230, 0.3);
   padding: 20px;
   border-radius: 0 0 10px 10px;
+  word-wrap:break-word;
 }
 
 a {
@@ -52,10 +53,10 @@ a {
   letter-spacing: 1px;
   text-decoration: none;
   font-family: 'Athiti', sans-serif;
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 600;
 
-  background-image: linear-gradient(90deg, var(--accent-color), #FFED17);
+  background-image: linear-gradient(90deg, var(--accent-color), white);
   background-repeat: no-repeat;
   background-position: bottom left;
   background-size: 0% 2px;
@@ -78,7 +79,6 @@ a {
 
 .meta {
   font-size: 16px;
-  opacity: 0.8;
   margin-top:10px;
   letter-spacing: 1.5px;
 }

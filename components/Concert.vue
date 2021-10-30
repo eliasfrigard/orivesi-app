@@ -43,7 +43,49 @@ export default {
       return moment(this.date).format('DD')
     },
     month() {
-      return moment(this.date).format('MMMM')
+      let month = ""
+      const engMonth = moment(this.date).format('MMMM')
+
+      switch (engMonth) {
+        case "January":
+          month = "Tammi"
+          break;
+        case "February":
+          month = "Helmi"
+          break;
+        case "March":
+          month = "Maalis"
+          break;
+        case "April":
+          month = "Huhti"
+          break;
+        case "May":
+          month = "Touko"
+          break;
+        case "June":
+          month = "Kesä"
+          break;
+        case "July":
+          month = "Heinä"
+          break;
+        case "August":
+          month = "Elo"
+          break;
+        case "September":
+          month = "Syys"
+          break;
+        case "October":
+          month = "Loka"
+          break;
+        case "November":
+          month = "Marras"
+          break;
+        case "December":
+          month = "Joulu"
+          break;
+      }
+
+      return month
     },
     year() {
       return moment(this.date).format('YYYY')
@@ -132,9 +174,10 @@ export default {
   }
 
   .date {
-    width: 125px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .day, .month, .year {
@@ -153,14 +196,14 @@ export default {
   .month {
     margin: 0;
     text-align: center;
-    font-size: 24px;
+    font-size: 34px;
     line-height: 110%;
   }
 
   .year {
     margin: 0;
     text-align: center;
-    font-size: 18px;
+    font-size:40px;
   }
 
   @media screen and (max-width: 992px) {
