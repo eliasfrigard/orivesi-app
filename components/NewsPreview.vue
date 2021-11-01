@@ -4,8 +4,8 @@
       <img class="image" :src="'./images/'+image" alt="">
     </div>
 
-    <div class="text">
-      <a>”Kaikenmoisia tansseja” on valittu vuoden kansanmusiikkilevyksi!!</a>
+    <div class="text" :style="{ color: textColor }">
+      <a :style="{ color: textColor }">”Kaikenmoisia tansseja” on valittu vuoden kansanmusiikkilevyksi!!</a>
       <p class="meta">Kategoria / Päivämäärä</p>
     </div>
   </div>
@@ -14,6 +14,10 @@
 <script>
 export default {
   props: {
+    textColor: {
+      type: String,
+      default: 'black'
+    },
     image: String,
     title: String,
   }
@@ -42,7 +46,6 @@ export default {
 
 .text {
   background-color: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(230, 230, 230, 0.3);
   padding: 20px;
   border-radius: 0 0 10px 10px;
   word-wrap:break-word;

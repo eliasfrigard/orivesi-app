@@ -7,17 +7,11 @@
         <p class="month">{{month}}</p>
         <p class="year">{{year}}</p>
       </div>
-<!--       <p class="until-line">-</p>
-      <div class="date">
-        <p class="day">15</p>
-        <p class="month">Marras</p>
-        <p class="year">1992</p>
-      </div> -->
 
       <div class="text">
         <p class="title">{{ title }}</p>
       </div>
-        <p class="location">Helsinki, FI <i :class="flagClass"></i></p>
+        <p class="location">{{ location }}, {{ country }} <i :class="flagClass"></i></p>
     </div>
   </div>
 </template>
@@ -26,15 +20,35 @@
 import moment from 'moment'
 
 export default {
-  props: ['title', 'date', 'location', 'country'],
+  props: {
+    title: String,
+    date: {
+      type: String,
+      default: ''
+    },
+    location: String,
+    country: String
+  },
   computed: {
     flagClass() {
+      if (this.date === '') {
+        return ''
+      }
+
       return /* this.country.toLowerCase() */ 'fi' + ' flag'
     },
     day() {
+      if (this.date === '') {
+        return ''
+      }
+
       return moment(this.date).format('DD')
     },
     month() {
+      if (this.date === '') {
+        return ''
+      }
+
       let month = ""
       const engMonth = moment(this.date).format('MMMM')
 
@@ -80,6 +94,10 @@ export default {
       return month
     },
     year() {
+      if (this.date === '') {
+        return ''
+      }
+
       return moment(this.date).format('YYYY')
     }
   },

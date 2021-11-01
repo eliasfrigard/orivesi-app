@@ -1,14 +1,17 @@
 <template>
-  <div class="main-wrapper">
+  <div class="main-wrapper" :style="{ backgroundColor: backgroundColor }">
     <div class="ui container wrapper">
-      <h2>UUTISET</h2>
+      <h2 :style="{ color: textColor }">UUTISET</h2>
       <div class="previews">
-        <NewsPreview class="preview" image="OAS_levykuva.jpg" />
-        <NewsPreview class="preview" image="oas1.jpg" />
-        <NewsPreview class="preview" image="oas4.jpg" />
-        <NewsPreview class="preview" image="oas5.jpg" />
-        <NewsPreview class="preview" image="oas6.jpg" />
-        <NewsPreview class="preview" image="oas8.jpg" />
+        <NewsPreview class="preview" :textColor="textColor" image="oas6.jpg" />
+        <NewsPreview class="preview" :textColor="textColor" image="OAS_levykuva.jpg" />
+        <NewsPreview class="preview" :textColor="textColor" image="oas1.jpg" />
+        <NewsPreview class="preview" :textColor="textColor" image="oas4.jpg" />
+        <NewsPreview class="preview" :textColor="textColor" image="oas5.jpg" />
+        <NewsPreview class="preview" :textColor="textColor" image="oas8.jpg" />
+        <NewsPreview class="preview" :textColor="textColor" image="oas4.jpg" />
+        <NewsPreview class="preview" :textColor="textColor" image="oas5.jpg" />
+        <NewsPreview class="preview" :textColor="textColor" image="oas8.jpg" />
       </div>
     </div>
   </div>
@@ -20,6 +23,16 @@ import NewsPreview from '@/components/NewsPreview.vue'
 export default {
   components: {
     NewsPreview,
+  },
+  props: {
+    textColor: {
+      type: String,
+      default: 'black'
+    },
+    backgroundColor: {
+      type: String,
+      default: 'var(--accent-color)'
+    }
   }
 }
 </script>
@@ -27,8 +40,6 @@ export default {
 <style scoped>
 .main-wrapper {
   color: rgb(240, 240, 240);
-  background-color: #D57B01;
-  transform: translateY(-150px);
 }
 
 .wrapper {

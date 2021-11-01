@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header />
     <Nuxt />
     <Footer />
   </div>
@@ -7,15 +8,21 @@
 
 <script>
 import Footer from '@/components/Footer.vue'
+import Header from '@/components/Header.vue'
 
 export default {
   components: {
-    Footer
+    Footer,
+    Header
   }
 }
 </script>
 
 <style>
+.header {
+  top: 100vh;
+}
+
 :root {
   --accent-color: #D57B01;
   --accent-hover: #eca202;
@@ -28,6 +35,11 @@ export default {
 ::-moz-selection {
   color: white;
   background: #D57B01; /* Gecko Browsers */
+}
+
+.accent-background ::selection {
+  color: #D57B01;
+  background: white; /* WebKit/Blink Browsers */
 }
 
 html {

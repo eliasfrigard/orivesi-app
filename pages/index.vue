@@ -2,9 +2,9 @@
   <div>
     <div class="content splash">
       <div class="content ui container">
-        <h1 class="page-title">ORIVESI ALLSTARS</h1>
-        <h2 class="sub-title">The Great Happy Orchestra</h2>
-
+        <h1 class="page-title">ORIVESI ALL STARS</h1>
+        <h2 class="sub-title">the great happy orchestra</h2>
+        <Navigation />
         <SplashImages />
       </div>
     </div>
@@ -13,16 +13,19 @@
       <img class="band-image" src="~/assets/images/oas-band.jpg" alt="">
       
       <div class="ui container info-wrapper">
-        <div class="info">
+        <div class="info-container">
           <h2>Suomen Suurin Pelimanniyhtye</h2>
           <p>OAS eli Orivesi All Stars on kenelle tahansa soittamisen perustaidot omaavalle avoin pelimannikollektiivi, joka on perustettu musiikillisen ilon löytämisen, oppimisen, kokemisen ja jakamisen edistämiseksi. Ikähaitari OASissa on n.8-85 vuoden välillä, maantieteellinen kattavuus on jo vähintäänkin akselilla Saksa-Oulu-USA ja ryhmässä ei tehdä eroa, oletko amatööri-, harrastaja- vai ammattisoittaja. Ainoa päämäärä on, että harjoitetaan mukavaa ja mielekästä musisointia yhdessä, hyvässä hengessä ja annetaan sen näkyä ja kuulua!</p>
-          <p>Yhtye on perustettu perinteisillä Oriveden kansanmusiikkikursseilla (järjestäjä Suomen Kansanmusiikkiliitto) joulukuussa vuonna 2011. Vetäjinä toimivat Antti Järvelä ja Reetta Kuisma.</p=>
+          <p>Yhtye on perustettu perinteisillä Oriveden kansanmusiikkikursseilla (järjestäjä Suomen Kansanmusiikkiliitto) joulukuussa vuonna 2011. Vetäjinä toimivat Antti Järvelä ja Reetta Kuisma.</p>
           <p><b>Tervetuloa mukaha!</b></p>
         </div>
       </div>
 
       <div class="wavy-container">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#D57B01" fill-opacity="1" d="M0,64L120,58.7C240,53,480,43,720,37.3C960,32,1200,32,1320,32L1440,32L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>        <NewsPreviews />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#D57B01" fill-opacity="1" d="M0,64L120,58.7C240,53,480,43,720,37.3C960,32,1200,32,1320,32L1440,32L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>
+        
+        <NewsPreviews class="news" textColor="white" />
+        
         <div class="flip">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#FFF" fill-opacity="1" d="M0,192L120,181.3C240,171,480,149,720,149.3C960,149,1200,171,1320,181.3L1440,192L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>        
         </div>
@@ -34,7 +37,7 @@
       <div class="album">
         <div class="text-divider">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#D57B01" fill-opacity="1" d="M0,96L1440,0L1440,320L0,320Z"></path></svg>
-          <div class="album-title">
+          <div class="album-title accent-background">
             <h2>KAIKENMOISIA TANSSEJA</h2>
             <br>
             <h3>VUODEN KANSANMUSIIKKIVELY 2020</h3>
@@ -47,7 +50,8 @@
 
         <div class="ui container album-content">
           <img class="album-image" src="~/assets/images/OAS_levykuva.jpg" alt="">
-          <div class="info">
+          <div class="info-container">
+            <h3>Suomen suurimmalta pelimanniorkesterilta odotettu ensilevy – ja vieläpä tuplana!</h3>
             <p>Suomen suurin pelimanniorkesteri Orivesi All Stars eli OAS julkaisee ensimmäisen levynsä ”Kaikenmoisia tansseja” tammikuussa 2019. Reilusti yli sadan pelimannin voimin tehty mahtipontinen levy on tietenkin – kerran kun hommaan ryhdyttiin – tuplalevy! Levyn mukana tulee vihkonen, jossa kerrotaan mukavalla otteella kappaleiden taustoista. Levyä saa mm. Suomen Kansanmusiikkiliiton verkkokaupasta sekä yhtyeen jäseniltä.</p>
             <p>YLE:n kanssa yhteistyönä tehty tallenne julkistetaan kansanmusiikkiväen talven ykköstapahtumassa, Folklandia-risteilyllä perjantaina 11.1.2019. Toinen levynjulkistuskonsertti järjestetään Oulussa, Tulinbergin salissa 16.3.2019, jolloin Oulussa järjestetään Samuelin Poloneesi, Suomen Kansanmusiikkiliiton vuotuinen suuri pelimannimusiikin juhla.</p>
             <p>Tuplalevyltä löytyy yhteensä 41 raitaa, joista osa koostuu useamman kappaleen sikermistä. Nimensä mukaisesti levy sisältää tanssittavaa musiikkia, mutta siltä löytyy kuunneltavaa myös hiljentymisen hetkiin. Albumilta löytyy laaja kirjo mukaansatempaavia niin suomalaisia, ruotsalaisia, ranskalaisia, italialaisia kuin amerikkalaisiakin perinnemusiikkikappaleita modernein sovituksin. Uusia sävellyksiä on myös mukana useampia. Sovitukset ovat pääosin Antti Järvelän käsialaa.</p>
@@ -68,14 +72,17 @@
 import SplashImages from '@/components/SplashImages.vue'
 import NewsPreviews from '@/components/NewsPreviews.vue'
 import Events from '@/components/Events.vue'
+import Navigation from '@/components/Navigation.vue'
+
 
 
 export default {
   components: {
     SplashImages,
     NewsPreviews,
-    Events
-  }
+    Events,
+    Navigation
+  },
 }
 </script>
 
@@ -110,7 +117,7 @@ export default {
   align-items: center;
 }
 
-.info {
+.info-container {
   margin: 100px 0;
   max-width: 965px;
   display:flex;
@@ -120,7 +127,7 @@ export default {
   text-align: center;
 }
 
-.info h2, .info p {
+.ininfo-containerfo h2, .info-container p {
   margin: 15px;
 }
 
@@ -173,7 +180,7 @@ export default {
   flex-direction: column;
 }
 
-.album-content .info {
+.album-content .info-container {
   max-width: 100%;
   margin:100px 0;
 }
@@ -190,5 +197,9 @@ export default {
 
 .text-divider {
   margin: 150px 0;
+}
+
+.news {
+  transform: translateY(-150px);
 }
 </style>

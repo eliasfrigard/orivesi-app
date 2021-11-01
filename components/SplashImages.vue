@@ -25,7 +25,6 @@ export default {
 
 <style scoped>
 .images {
-  margin-top: 20px;
   display:flex;
   flex-wrap: wrap;
   width: 100%;
@@ -34,5 +33,6 @@ export default {
   width: calc(14.285% - 10px);
   margin: 10px 10px 0 0;
   object-fit: cover;
+  border-radius: 5px;
 }
 </style>
