@@ -56,7 +56,7 @@ a {
   letter-spacing: 1px;
   text-decoration: none;
   font-family: 'Athiti', sans-serif;
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 600;
 
   background-image: linear-gradient(90deg, var(--accent-color), white);

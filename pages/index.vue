@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <Events />
+      <Events onlyUpcoming="true"/>
 
 
       <div class="album">

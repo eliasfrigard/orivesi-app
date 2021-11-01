@@ -141,6 +141,10 @@ export default {
   width: 7px;
 }
 
+.event:hover .title {
+  font-weight: bold;
+}
+
 .event:hover {
   background-color: #f3f3f3;
 }
@@ -185,6 +189,8 @@ export default {
 
 .title {
   font-weight: 600;
+  text-align: center;
+  transition: all 100ms ease-in-out;
 }
 
 .location {
@@ -197,9 +203,4 @@ export default {
   display:flex;
   flex-direction: column;
 }
-
-/* .until-line {
-  font-size: 30px;
-  font-weight: 600;
-} */
 </style>

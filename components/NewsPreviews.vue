@@ -9,9 +9,6 @@
         <NewsPreview class="preview" :textColor="textColor" image="oas4.jpg" />
         <NewsPreview class="preview" :textColor="textColor" image="oas5.jpg" />
         <NewsPreview class="preview" :textColor="textColor" image="oas8.jpg" />
-        <NewsPreview class="preview" :textColor="textColor" image="oas4.jpg" />
-        <NewsPreview class="preview" :textColor="textColor" image="oas5.jpg" />
-        <NewsPreview class="preview" :textColor="textColor" image="oas8.jpg" />
       </div>
     </div>
   </div>
@@ -54,6 +51,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  padding-bottom: 15px;
 }
 
 .preview {
