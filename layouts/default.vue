@@ -65,7 +65,7 @@ h3 {
   letter-spacing: 1px;
 }
 
-p {
+p, th, td {
   font-family: 'Athiti', sans-serif;
   font-size: 20px;
   line-height: 35px;

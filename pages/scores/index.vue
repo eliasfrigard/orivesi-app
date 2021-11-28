@@ -1,14 +1,17 @@
 <template>
   <div>
     <div class="score-container ui container">
-      <iframe class="score" src="/2-rivisJenkka.pdf"></iframe>
+      <MusicScores />
     </div>
   </div>
 </template>
 
 <script>
+import MusicScores from '@/components/MusicScores.vue'
+
 export default {
   components: {
+    MusicScores,
   },
 }
 </script>
