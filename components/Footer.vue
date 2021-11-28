@@ -32,7 +32,7 @@ export default {
 <style scoped>
 .footer {
   color: white;
-  height: 400px;
+  height: 350px;
   background-color: var(--accent-color);
 
   display:flex;

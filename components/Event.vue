@@ -138,12 +138,10 @@ export default {
 }
 
 .event:hover .highlight {
-  width: 7px;
+  width: 8px;
+  margin-right: -5px;
 }
 
-.event:hover .title {
-  font-weight: bold;
-}
 
 .event:hover {
   background-color: #f3f3f3;

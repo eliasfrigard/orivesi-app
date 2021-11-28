@@ -32,6 +32,7 @@ export default {
   color: white;
   background: #D57B01; /* WebKit/Blink Browsers */
 }
+
 ::-moz-selection {
   color: white;
   background: #D57B01; /* Gecko Browsers */

@@ -3,7 +3,7 @@
     <NuxtLink class="navitem" to="/">Koti</NuxtLink>
     <NuxtLink class="navitem" to="/news">Uutiset</NuxtLink>
     <NuxtLink class="navitem" to="/events">Tapahtumat</NuxtLink>
-    <NuxtLink class="navitem" to="/">Nuotit</NuxtLink>
+    <NuxtLink class="navitem" to="/scores">Nuotit</NuxtLink>
     <NuxtLink class="navitem" to="/">Media</NuxtLink>
     <NuxtLink class="navitem" to="/">Jäsenyydet</NuxtLink>
     <NuxtLink class="navitem" to="/contact">Yhteistiedot</NuxtLink>
