@@ -2,8 +2,8 @@
   <div>
     <div class="content splash">
       <div class="content ui container">
-        <h1 class="page-title">ORIVESI ALL STARS</h1>
-        <h2 class="sub-title">the great happy orchestra</h2>
+        <h1 class="page-title">{{ pageData.PageTitle }}</h1>
+        <h2 class="sub-title">{{ pageData.PageSubTitle }}</h2>
         <Navigation />
         <SplashImages />
       </div>
@@ -14,6 +14,7 @@
       
       <div class="ui container info-wrapper">
         <div class="info-container">
+          <div>{{infoText}}</div>          
           <h2>Suomen Suurin Pelimanniyhtye</h2>
           <p>OAS eli Orivesi All Stars on kenelle tahansa soittamisen perustaidot omaavalle avoin pelimannikollektiivi, joka on perustettu musiikillisen ilon löytämisen, oppimisen, kokemisen ja jakamisen edistämiseksi. Ikähaitari OASissa on n.8-85 vuoden välillä, maantieteellinen kattavuus on jo vähintäänkin akselilla Saksa-Oulu-USA ja ryhmässä ei tehdä eroa, oletko amatööri-, harrastaja- vai ammattisoittaja. Ainoa päämäärä on, että harjoitetaan mukavaa ja mielekästä musisointia yhdessä, hyvässä hengessä ja annetaan sen näkyä ja kuulua!</p>
           <p>Yhtye on perustettu perinteisillä Oriveden kansanmusiikkikursseilla (järjestäjä Suomen Kansanmusiikkiliitto) joulukuussa vuonna 2011. Vetäjinä toimivat Antti Järvelä ja Reetta Kuisma.</p>
@@ -69,12 +70,13 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { marked } from 'marked';
+
 import SplashImages from '@/components/SplashImages.vue'
 import NewsPreviews from '@/components/NewsPreviews.vue'
 import Events from '@/components/Events.vue'
 import Navigation from '@/components/Navigation.vue'
-
-
 
 export default {
   components: {
@@ -83,6 +85,29 @@ export default {
     Events,
     Navigation
   },
+  data() {
+    return {
+      pageData: {},
+      title: '',
+      subtitle: '',
+      infoText: '',
+    }
+  },
+  computed: {
+    markdownToHtml(){
+      return marked(this.markdown);
+    }
+  },
+  created() {
+    axios.get('https://orivesiallstars.net/home').then(response => {
+      this.pageData = response.data
+      const data = response.data
+
+      this.title = data.PageTitle
+      this.subtitle = data.PageSubTitle
+      this.infoText = marked(data.InfoText)
+    })
+  }
 }
 </script>
 
