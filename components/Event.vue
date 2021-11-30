@@ -3,15 +3,17 @@
     <div class="highlight"></div>
     <div class="content">
       <div class="date">
-        <p class="day">{{day}}</p>
-        <p class="month">{{month}}</p>
-        <p class="year">{{year}}</p>
+        <p class="day">{{ day }}</p>
+        <p class="month">{{ month }}</p>
+        <p class="year">{{ year }}</p>
       </div>
 
       <div class="text">
         <p class="title">{{ title }}</p>
       </div>
-        <p class="location">{{ location }}, {{ country }} <i :class="flagClass"></i></p>
+      <p class="location">
+        {{ location }}, {{ country }} <i :class="flagClass"></i>
+      </p>
     </div>
   </div>
 </template>
@@ -24,10 +26,10 @@ export default {
     title: String,
     date: {
       type: String,
-      default: ''
+      default: '',
     },
     location: String,
-    country: String
+    country: String,
   },
   computed: {
     flagClass() {
@@ -49,46 +51,46 @@ export default {
         return ''
       }
 
-      let month = ""
+      let month = ''
       const engMonth = moment(this.date).format('MMMM')
 
       switch (engMonth) {
-        case "January":
-          month = "Tammi"
-          break;
-        case "February":
-          month = "Helmi"
-          break;
-        case "March":
-          month = "Maalis"
-          break;
-        case "April":
-          month = "Huhti"
-          break;
-        case "May":
-          month = "Touko"
-          break;
-        case "June":
-          month = "Kesä"
-          break;
-        case "July":
-          month = "Heinä"
-          break;
-        case "August":
-          month = "Elo"
-          break;
-        case "September":
-          month = "Syys"
-          break;
-        case "October":
-          month = "Loka"
-          break;
-        case "November":
-          month = "Marras"
-          break;
-        case "December":
-          month = "Joulu"
-          break;
+        case 'January':
+          month = 'Tammi'
+          break
+        case 'February':
+          month = 'Helmi'
+          break
+        case 'March':
+          month = 'Maalis'
+          break
+        case 'April':
+          month = 'Huhti'
+          break
+        case 'May':
+          month = 'Touko'
+          break
+        case 'June':
+          month = 'Kesä'
+          break
+        case 'July':
+          month = 'Heinä'
+          break
+        case 'August':
+          month = 'Elo'
+          break
+        case 'September':
+          month = 'Syys'
+          break
+        case 'October':
+          month = 'Loka'
+          break
+        case 'November':
+          month = 'Marras'
+          break
+        case 'December':
+          month = 'Joulu'
+          break
       }
 
       return month
@@ -99,14 +101,14 @@ export default {
       }
 
       return moment(this.date).format('YYYY')
-    }
+    },
   },
 }
 </script>
 
 <style scoped>
 .event {
-  margin:15px 0;
+  margin: 15px 0;
 
   width: 100%;
   height: 120px;
@@ -123,13 +125,13 @@ export default {
 .content {
   height: 100%;
   width: calc(100% - 7px);
-  display:flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .highlight {
-  height:100%;
+  height: 100%;
   width: 3px;
 
   border-radius: 5px 0 0 5px;
@@ -142,19 +144,20 @@ export default {
   margin-right: -5px;
 }
 
-
 .event:hover {
   background-color: #f3f3f3;
 }
 
 .date {
   width: 125px;
-  margin:15px;
+  margin: 15px;
   display: flex;
   flex-direction: column;
 }
 
-.day, .month, .year {
+.day,
+.month,
+.year {
   margin: 0;
   padding: 0;
   line-height: 100%;
@@ -163,8 +166,8 @@ export default {
 .day {
   text-align: center;
   line-height: 85%;
-  margin:0;
-  font-size:50px;
+  margin: 0;
+  font-size: 50px;
   font-weight: 600;
 }
 
@@ -181,7 +184,8 @@ export default {
   font-size: 18px;
 }
 
-.title, .location {
+.title,
+.location {
   text-transform: uppercase;
 }
 
@@ -192,13 +196,13 @@ export default {
 }
 
 .location {
-  margin:15px;
+  margin: 15px;
   min-width: 125px;
 }
 
 .text {
   margin: 15px;
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
 </style>

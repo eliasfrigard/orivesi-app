@@ -4,7 +4,7 @@
       <h2 :style="{ color: textColor }">UUTISET</h2>
       <div class="previews">
         <NewsPreview class="preview" :textColor="textColor" image="oas6.jpg" />
-        <NewsPreview class="preview" :textColor="textColor" image="OAS_levykuva.jpg" />
+        <NewsPreview class="preview" :textColor="textColor" image="oas1.jpg" />
         <NewsPreview class="preview" :textColor="textColor" image="oas1.jpg" />
         <NewsPreview class="preview" :textColor="textColor" image="oas4.jpg" />
         <NewsPreview class="preview" :textColor="textColor" image="oas5.jpg" />
@@ -24,13 +24,13 @@ export default {
   props: {
     textColor: {
       type: String,
-      default: 'black'
+      default: 'black',
     },
     backgroundColor: {
       type: String,
-      default: 'var(--accent-color)'
-    }
-  }
+      default: 'var(--accent-color)',
+    },
+  },
 }
 </script>
 
@@ -46,7 +46,7 @@ export default {
   flex-direction: column;
 }
 .previews {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;

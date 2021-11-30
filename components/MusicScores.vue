@@ -1,107 +1,81 @@
 <template>
   <div>
-    <table class="score-table">
-      <tr class="header-row">
-        <th>Nimi</th>
-        <th>Säveltäjä</th>
-        <th>Tanssilaji</th>
-        <th>Versio</th>
-        <th></th>
-      </tr>
-      <tr class="data-row">
-        <td>For Sara</td>
-        <td>Antti Järvelä</td>
-        <td>Valssi</td>
-        <td>
-          <select name="versions" id="versions">
-            <option value="volvo">Bb_Menuett-Jungfrun-träder-fram</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-          </select>
-        </td>
-        <td>
-          <div id="data-icons">
-            <i class="fas fa-download fa-lg"></i>
-            <i class="fas fa-expand-alt fa-lg"></i>
-          </div>
-        </td>
-      </tr>
+    <div class="titles">
+      <p id="score-title">Nuotti</p>
+      <p id="score-composer">Säveltäjä</p>
+      <p id="score-dancetype">Tanssilaji</p>
 
-
-      <tr class="data-row">
-        <td>For Sara</td>
-        <td>Antti Järvelä</td>
-        <td>Valssi</td>
-        <td>
-          <select name="versions" id="versions">
-            <option value="volvo">BMW</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-          </select>
-        </td>
-        <td>
-          <div id="data-icons">
-            <i class="fas fa-download fa-lg"></i>
-            <i class="fas fa-expand-alt fa-lg"></i>
-          </div>
-        </td>
-      </tr>
-    </table>
+      <div class="icons score-icons">
+        <i class="fas fa-chevron-circle-down fa-lg"></i>
+      </div>
+    </div>
+    <MusicScore
+      v-for="score in musicScores"
+      :key="score.id"
+      :title="score.Title"
+      :dancetype="score.Dancetype"
+      :composer="score.Composer"
+      :versions="score.Scores"
+    />
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
+import MusicScore from '@/components/MusicScore.vue'
+
 export default {
   components: {
+    MusicScore,
+  },
+  data() {
+    return {
+      musicScores: [],
+    }
+  },
+  created() {
+    axios.get('https://orivesiallstars.net/music-scores').then((response) => {
+      this.musicScores = response.data
+    })
   },
 }
 </script>
 
 <style scoped>
-.score-table {
-  width: 100%;
-  text-align: left;
+.titles {
+  display: flex;
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
 }
 
-.header-row, .data-row {
-  height: 75px;  
-  background-color: #fafafa;
+.titles p {
+  font-weight: bold;
+  font-size: 30px;
 }
 
-tr {
+#score-title {
+  width: 540px;
+  font-size: 30px;
+  margin-left: -4px;
+}
+
+#score-composer {
+  width: 200px;
   text-align: center;
+  font-size: 23px;
 }
 
-th, td {
-  padding: 25px;
-}
-
-td {
-  font-weight: 600;
-}
-
-select {
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  padding: 5px;
+#score-dancetype {
+  width: 130px;
+  text-align: center;
+  font-size: 23px;
 }
 
 i {
-  margin: 0 12px;
-}
-
-.data-row:hover {
-  background-color: #f3f3f3;
-  cursor: pointer;
-}
-
-#data-icons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+  font-size: 22px;
+  margin: 0 8px;
+  opacity: 0;
 }
 </style>

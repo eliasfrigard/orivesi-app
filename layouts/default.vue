@@ -13,8 +13,8 @@ import Header from '@/components/Header.vue'
 export default {
   components: {
     Footer,
-    Header
-  }
+    Header,
+  },
 }
 </script>
 
@@ -24,28 +24,28 @@ export default {
 }
 
 :root {
-  --accent-color: #D57B01;
+  --accent-color: #d57b01;
   --accent-hover: #eca202;
 }
 
 ::selection {
   color: white;
-  background: #D57B01; /* WebKit/Blink Browsers */
+  background: #d57b01; /* WebKit/Blink Browsers */
 }
 
 ::-moz-selection {
   color: white;
-  background: #D57B01; /* Gecko Browsers */
+  background: #d57b01; /* Gecko Browsers */
 }
 
 .accent-background ::selection {
-  color: #D57B01;
+  color: #d57b01;
   background: white; /* WebKit/Blink Browsers */
 }
 
 html {
   font-family: 'Antonio', sans-serif;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
 }
 
 h1 {
@@ -65,7 +65,9 @@ h3 {
   letter-spacing: 1px;
 }
 
-p, th, td {
+p,
+th,
+td {
   font-family: 'Athiti', sans-serif;
   font-size: 20px;
   line-height: 35px;
@@ -82,6 +84,6 @@ a {
 }
 
 a:hover {
-  color: var(--accent-hover)
+  color: var(--accent-hover);
 }
 </style>

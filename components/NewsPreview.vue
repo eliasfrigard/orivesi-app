@@ -1,11 +1,13 @@
 <template>
   <div class="news-preview">
     <div class="image-wrapper">
-      <img class="image" :src="'./images/'+image" alt="">
+      <img class="image" :src="'./images/' + image" alt="" />
     </div>
 
     <div class="text" :style="{ color: textColor }">
-      <a :style="{ color: textColor }">”Kaikenmoisia tansseja” on valittu vuoden kansanmusiikkilevyksi!!</a>
+      <a :style="{ color: textColor }">
+        ”Kaikenmoisia tansseja” on valittu vuoden kansanmusiikkilevyksi!!
+      </a>
       <p class="meta">Kategoria / Päivämäärä</p>
     </div>
   </div>
@@ -16,24 +18,29 @@ export default {
   props: {
     textColor: {
       type: String,
-      default: 'black'
+      default: 'black',
     },
     image: String,
     title: String,
-  }
+  },
 }
 </script>
 
 <style scoped>
 .news-preview {
-  -webkit-box-shadow: 0px 10px 13px -7px rgba(0, 0, 0, 0.3), 5px 5px 5px 1px rgba(0,0,0,0); 
-  box-shadow: 0px 10px 13px -7px rgba(0, 0, 0, 0.3), 5px 5px 5px 1px rgba(0,0,0,0);    
+  -webkit-box-shadow: 0px 10px 13px -7px rgba(0, 0, 0, 0.1),
+    5px 5px 5px 1px rgba(0, 0, 0, 0);
+  box-shadow: 0px 10px 13px -7px rgba(0, 0, 0, 0.1),
+    5px 5px 5px 1px rgba(0, 0, 0, 0);
   cursor: pointer;
   width: calc(33.33% - 25px);
+  outline: 5px solid rgba(255, 255, 255, 0.15);
+  outline-offset: 0.5em;
 }
 
 .image-wrapper {
-  border-radius: 10px 10px 0 0;
+  /*   border-radius: 10px 10px 0 0;
+ */
   overflow: hidden;
 }
 
@@ -45,21 +52,25 @@ export default {
 }
 
 .text {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.15);
   padding: 20px;
-  border-radius: 0 0 10px 10px;
-  word-wrap:break-word;
+  /*   border-radius: 0 0 10px 10px;
+ */
+  word-wrap: break-word;
 }
 
 a {
-  color:white;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   text-decoration: none;
   font-family: 'Athiti', sans-serif;
   font-size: 19px;
   font-weight: 600;
 
-  background-image: linear-gradient(90deg, var(--accent-color), white);
+  background-image: linear-gradient(
+    90deg,
+    rgba(218, 85, 78, 0),
+    rgba(218, 85, 78, 0)
+  );
   background-repeat: no-repeat;
   background-position: bottom left;
   background-size: 0% 2px;
@@ -67,8 +78,11 @@ a {
 }
 
 .news-preview:hover {
-  -webkit-box-shadow: 0px 10px 13px -7px rgba(0, 0, 0, 0.3), 5px 5px 5px 1px rgba(0,0,0,0); 
-  box-shadow: 0px 10px 13px -7px rgba(0, 0, 0, 0.3), 5px 5px 5px 1px rgba(0,0,0,0);    
+  /*   -webkit-box-shadow: 0px 10px 13px -7px rgba(0, 0, 0, 0.2),
+    5px 5px 5px 1px rgba(0, 0, 0, 0);
+  box-shadow: 0px 10px 13px -7px rgba(0, 0, 0, 0.2),
+    5px 5px 5px 1px rgba(0, 0, 0, 0); */
+  outline: 7px solid rgba(255, 255, 255, 0.2);
 }
 
 .news-preview:hover a {
@@ -82,7 +96,7 @@ a {
 
 .meta {
   font-size: 16px;
-  margin-top:10px;
+  margin-top: 10px;
   letter-spacing: 1.5px;
 }
 </style>
