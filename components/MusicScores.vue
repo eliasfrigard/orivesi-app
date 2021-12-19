@@ -1,45 +1,70 @@
 <template>
-  <div>
-    <div class="titles">
-      <p id="score-title">Nuotti</p>
-      <p id="score-composer">Säveltäjä</p>
-      <p id="score-dancetype">Tanssilaji</p>
+  <div class="ui container">
+    <MockScore
+      @toggle-order="toggleOrder"
+      title="Nimi"
+      dancetype="Tanssilaji"
+      composer="Säveltäjä"
+      mock="true"
+    />
 
-      <div class="icons score-icons">
-        <i class="fas fa-chevron-circle-down fa-lg"></i>
-      </div>
-    </div>
     <MusicScore
       v-for="score in musicScores"
       :key="score.id"
       :title="score.Title"
       :dancetype="score.Dancetype"
+      :description="score.Description"
       :composer="score.Composer"
       :versions="score.Scores"
+      :audio="score.Audio"
+      :videoArray="score.Video"
+      :youtube="score.Youtube"
     />
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
-import MusicScore from '@/components/MusicScore.vue'
+import MusicScore from '@/components/MusicScore.vue';
+import MockScore from '@/components/MockScore.vue';
 
 export default {
   components: {
     MusicScore,
+    MockScore,
   },
   data() {
     return {
       musicScores: [],
-    }
+      // Initial sort values.
+      sortParameter: 'Title',
+      sortDirection: 'asc',
+    };
+  },
+  computed: {
+    sortOrder() {
+      return '?_sort=' + this.sortParameter + ':' + this.sortDirection;
+    },
   },
   created() {
-    axios.get('https://orivesiallstars.net/music-scores').then((response) => {
-      this.musicScores = response.data
-    })
+    this.getScores();
   },
-}
+  methods: {
+    toggleOrder(identifier, direction) {
+      this.sortParameter = identifier;
+      this.sortDirection = direction;
+      this.getScores();
+    },
+    getScores() {
+      axios
+        .get('https://orivesiadmin.net/music-scores' + this.sortOrder)
+        .then((response) => {
+          this.musicScores = response.data;
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -53,24 +78,6 @@ export default {
 .titles p {
   font-weight: bold;
   font-size: 30px;
-}
-
-#score-title {
-  width: 540px;
-  font-size: 30px;
-  margin-left: -4px;
-}
-
-#score-composer {
-  width: 200px;
-  text-align: center;
-  font-size: 23px;
-}
-
-#score-dancetype {
-  width: 130px;
-  text-align: center;
-  font-size: 23px;
 }
 
 i {

@@ -102,6 +102,7 @@ export default {
      */ Events,
     Navigation,
   },
+  layout: 'splash',
   data() {
     return {
       title: '',
@@ -111,7 +112,7 @@ export default {
   },
   created() {
     /* Get single page data. */
-    axios.get('https://orivesiallstars.net/home').then((response) => {
+    axios.get('https://orivesiadmin.net/home').then((response) => {
       const data = response.data
 
       this.infoText = DOMPurify.sanitize(marked(data.InfoText))

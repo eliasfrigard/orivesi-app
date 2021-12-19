@@ -1,21 +1,130 @@
 <template>
   <div class="score-wrapper">
+    <!-- Main container and titles -->
     <div class="score" @click="toggleVersions">
       <p id="score-title">{{ title }}</p>
       <p id="score-composer">{{ composer }}</p>
       <p id="score-dancetype">{{ dancetype }}</p>
-      <div class="icons score-icons">
-        <i v-if="versionsActive" class="fas fa-chevron-circle-down fa-lg"></i>
-        <i v-else class="fas fa-chevron-circle-up fa-lg"></i>
+
+      <StatusIcon :open="versionsActive" />
+    </div>
+
+    <!-- Description -->
+    <div v-if="versionsActive && description" class="information-container">
+      <div @click="toggleDescription" class="information-dropdown">
+        <div class="container-title">
+          <i class="fas fa-align-center"></i>
+          <p>Kuvaus / Sanat</p>
+        </div>
+
+        <StatusIcon :open="descriptionActive" />
+      </div>
+
+      <hr v-if="descriptionActive" />
+
+      <div
+        v-if="descriptionActive"
+        class="score-description"
+        v-html="descriptionSanitized"
+      ></div>
+    </div>
+
+    <!-- Audio -->
+    <div
+      v-if="versionsActive && audio.length > 0"
+      class="information-container"
+    >
+      <div @click="toggleAudioContainer" class="information-dropdown">
+        <div class="container-title">
+          <i class="fas fa-music"></i>
+          <p>Äänitteet</p>
+        </div>
+
+        <StatusIcon :open="audioContainerActive" />
+      </div>
+
+      <hr v-if="audioContainerActive" />
+
+      <div v-if="audioContainerActive" class="score-audio">
+        <div v-for="track in audio" :key="track.id" class="audio-wrapper">
+          <p class="audio-title">{{ track.name }}</p>
+          <audio controls class="audio-players">
+            <source :src="track.url" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
       </div>
     </div>
-    <div v-if="versionsActive" class="score-versions">
-      <div v-for="version in versions" :key="version">
-        <div @click="openPdf" class="score-version">
+
+    <!-- Video -->
+    <div
+      v-if="versionsActive && (videoArray.length > 0 || youtube)"
+      class="information-container"
+    >
+      <div @click="toggleVideoContainer" class="information-dropdown">
+        <div class="container-title">
+          <i class="fas fa-video"></i>
+          <p>Videot</p>
+        </div>
+
+        <StatusIcon :open="videoContainerActive" />
+      </div>
+
+      <hr v-if="videoContainerActive" />
+
+      <div v-if="videoContainerActive" class="score-video">
+        <div class="video-container">
+          <div
+            v-for="video in videoArray"
+            :key="video.id"
+            class="video-wrapper"
+          >
+            <p class="video-title">{{ video.name }}</p>
+
+            <iframe
+              class="video-frame"
+              :height="videoHeight"
+              :width="videoWidth"
+              :src="video.url"
+              title="Local video player"
+              frameborder="0"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+
+        <div class="video-container">
+          <div v-for="video in youtubeArray" :key="video" class="video-wrapper">
+            <iframe
+              class="video-frame"
+              :height="videoHeight"
+              :width="videoWidth"
+              :src="'https://www.youtube.com/embed/' + video"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Versions -->
+    <div v-if="versionsActive" class="information-container">
+      <div v-for="version in versions" :key="version.id">
+        <div @click="openPdf(version.url, version.name)" class="score-version">
           <p id="version-title">{{ version.name }}</p>
           <div class="icons">
-            <i @click="openPdf" class="fas fa-expand-alt fa-lg"></i>
-            <a :href="version.url" download="download">
+            <i
+              @click="openPdf(version.url, version.name)"
+              class="fas fa-expand-alt fa-lg"
+            ></i>
+            <!-- <a @click="download(version.url, version.name)"> -->
+            <a @click.stop="download(version.url, version.name)">
               <i class="fas fa-download fa-lg"></i>
             </a>
           </div>
@@ -28,61 +137,145 @@
       <div class="pdf-controls">
         <div @click="closePdf" class="left-controls">
           <i class="fas fa-arrow-left"></i>
-          <p id="return-message">Palaa takaisin nuottisivulle.</p>
+          <p id="return-message"><b>Palaa takaisin nuottisivulle.</b></p>
         </div>
         <div @click="closePdf" class="right-controls">
           <i class="fas fa-times"></i>
         </div>
       </div>
 
-      <embed
-        id="pdf-viewer"
-        src="https://orivesi-strapi-bucket.s3.eu-north-1.amazonaws.com/Capri_Fischer_1ja2_V_Lja_Alttoviulustemma_ffe907d4b9.pdf"
-      />
+      <embed id="pdf-viewer" :src="pdfURL" />
     </div>
   </div>
 </template>
 
 <script>
+import DOMPurify from 'dompurify'
+import { marked } from 'marked'
+import axios from 'axios'
+
+import StatusIcon from '@/components/StatusIcon.vue'
+
 export default {
   name: 'MusicScore',
+  components: {
+    StatusIcon,
+  },
   props: {
     title: String,
     dancetype: String,
     composer: String,
+    description: String,
     versions: Array,
+    audio: Array,
+    videoArray: Array,
+    youtube: String,
   },
   data() {
     return {
       versionsActive: false,
+      descriptionActive: false,
+      audioContainerActive: false,
+      videoContainerActive: false,
       pdfActive: false,
       pdfLink: '',
+      descriptionSanitized: '',
+      youtubeArray: [],
+      pdfURL: '',
+    }
+  },
+  computed: {
+    videoHeight() {
+      return this.videoWidth * 0.5632
+    },
+    videoWidth() {
+      const informationContainerWidth = document.querySelectorAll(
+        '.information-container'
+      )[0].offsetWidth
+
+      // If mobile, return 100%.
+      if (this.isMobile) return informationContainerWidth - 60
+
+      // Else return part of div as value.
+      return (informationContainerWidth - 60) * 0.48
+    },
+    isMobile() {
+      return window.innerWidth < 1200
+    },
+  },
+
+  created() {
+    if (this.description) {
+      this.descriptionSanitized = DOMPurify.sanitize(marked(this.description))
+    }
+
+    if (this.youtube) {
+      this.youtubeArray = this.youtube.split('\n')
     }
   },
   methods: {
     toggleVersions() {
       this.versionsActive = !this.versionsActive
+
+      if (this.versionsActive === false) {
+        this.descriptionActive = false
+        this.audioContainerActive = false
+        this.videoContainerActive = false
+      }
     },
-    openPdf() {
-      this.pdfActive = true
+    toggleDescription() {
+      this.descriptionActive = !this.descriptionActive
+    },
+    toggleAudioContainer() {
+      this.audioContainerActive = !this.audioContainerActive
+    },
+    toggleVideoContainer() {
+      this.videoContainerActive = !this.videoContainerActive
+    },
+    openPdf(URL, name) {
+      if (URL.split('.').pop() === 'pdf') {
+        this.pdfActive = true
+        this.pdfURL = URL
+      } else {
+        this.download(URL, name)
+      }
     },
     closePdf() {
       this.pdfActive = false
     },
-    downloadScore(version) {
-      window.location.href = version.url
+    download(URL, name) {
+      axios({
+        responseType: 'blob',
+        url: URL,
+        method: 'get',
+        headers: {
+          'response-content-disposition': 'attachment',
+        },
+      }).then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', name) // or any other extension
+        document.body.appendChild(link)
+        link.click()
+      })
     },
   },
 }
 </script>
 
 <style scoped>
+.hidden {
+  opacity: 0;
+}
+
 .pdf-wrapper {
   background-color: #323639;
   top: 0;
+  z-index: 10;
   height: 100vh;
   width: 100%;
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: space-between;
 }
@@ -121,8 +314,48 @@ export default {
   position: absolute;
 }
 
-.score-wrapper {
+.score-audio,
+.score-video {
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.audio-wrapper {
+  width: 48%;
   margin: 10px 0;
+}
+
+.audio-players,
+.video-players {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.audio-title {
+  margin-bottom: 5px;
+}
+
+.video-title {
+  margin-bottom: 15px;
+}
+
+.video-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.video-wrapper {
+  margin-bottom: 30px;
+  display: inline;
+}
+
+.score-wrapper {
+  margin: 20px 0;
 }
 
 .score {
@@ -136,7 +369,6 @@ export default {
   border: 1px solid rgba(14, 19, 57, 0.1);
   border-radius: 5px;
   padding: 20px;
-  transition: all 100ms ease-in-out;
 }
 
 .score p {
@@ -149,13 +381,39 @@ export default {
   align-items: center;
 }
 
-.score-versions {
+.information-container {
   border: 1px solid rgba(14, 19, 57, 0.1);
   background-color: #fafafa;
   border-radius: 5px;
   margin-top: 10px;
 
   width: 92%;
+}
+
+.container-title {
+  display: flex;
+  align-items: center;
+  margin-left: -6px;
+}
+
+.container-title i {
+  margin-right: 20px;
+  color: #d57b01;
+}
+
+.information-dropdown {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  cursor: pointer;
+}
+
+.score-description {
+  padding: 30px;
+  width: 75%;
 }
 
 .score-version {
@@ -166,7 +424,6 @@ export default {
   padding: 10px 30px;
   word-break: break-word;
   cursor: pointer;
-  transition: all 100ms ease-in-out;
 }
 
 #version-title {
@@ -174,7 +431,14 @@ export default {
 }
 
 .score:hover,
-.score-version:hover {
+.score-version:hover,
+.information-dropdown:hover {
+  transition: all 75ms ease-in-out;
+}
+
+.score:hover,
+.score-version:hover,
+.information-dropdown:hover {
   background-color: #f3f3f3;
 }
 
@@ -194,7 +458,8 @@ i:hover {
 }
 
 #score-title {
-  width: 540px;
+  word-wrap: break-word;
+  width: 495px;
 }
 
 #score-composer {
@@ -202,7 +467,7 @@ i:hover {
 }
 
 #score-dancetype {
-  width: 130px;
+  width: 145px;
 }
 
 #score-dancetype,
@@ -216,12 +481,32 @@ p {
   letter-spacing: 1px;
 }
 
+.score p,
+.container-title p,
+#version-title,
+#return-message {
+  margin: 0;
+}
+
+.icon-default {
+  transition: transform 0.3s;
+}
+
+.icon-hover {
+  transition: transform 0.3s;
+  transform: rotate(-90deg);
+}
+
 @media screen and (max-width: 1200px) {
   .score {
     flex-direction: column;
   }
 
-  .score-versions {
+  .video-container {
+    justify-content: center;
+  }
+
+  .information-container {
     width: 100%;
   }
 
@@ -235,6 +520,21 @@ p {
 
   .score-icons {
     margin-top: 10px;
+  }
+
+  .score-description {
+    padding: 30px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #version-title {
+    width: 70%;
+  }
+
+  .audio-wrapper {
+    width: 100%;
   }
 }
 </style>
